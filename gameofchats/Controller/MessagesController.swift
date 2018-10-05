@@ -51,8 +51,7 @@ class MessagesController: UITableViewController {
         let messagesReference = Database.database().reference().child("messages").child(messageId)
         messagesReference.observeSingleEvent(of: .value, with: {(snapshot)in
             if let dictionary = snapshot.value as? [String: AnyObject] {
-                let message = Message()
-                message.setValuesForKeys(dictionary)
+                let message = Message(dictionary: dictionary)
                 
                 if let chatPartnerId = message.chatPartnerId() {
                     self.messagesDictionary[chatPartnerId] = message
